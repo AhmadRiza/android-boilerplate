@@ -1,0 +1,10 @@
+package com.riza.github.network
+
+/**
+ * Created by ahmadriza on 14/08/22.
+ * Copyright (c) 2022 Kitabisa. All rights reserved.
+ */
+object HostUrl {
+    const val GITHUB_BASE_URL = ""
+    const val GITHUB_TOKEN = "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"
+}

@@ -21,5 +21,5 @@ pluginManagement {
 }
 
 include(
-    ":app",
+    ":app", ":network", ":common"
 )

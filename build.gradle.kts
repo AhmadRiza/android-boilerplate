@@ -16,6 +16,7 @@ buildscript {
         classpath(libs.classpath.kotlin.gradle)
         classpath(libs.classpath.kotlin.serialization)
         classpath(libs.classpath.kotlin.allopen)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
 
     }
 }
