@@ -9,24 +9,26 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.kotlin)
+    // Kotlin
+    implementation(libs.android.core.ktx)
     implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+    implementation(libs.kotlin.datetime)
 
+    implementation(libs.appcompat)
+    implementation(libs.android.core)
+
+    // Android Architecture Components
+    implementation(libs.lifecycle.livedata.core.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+
+    // DI
+    implementation(libs.javax.inject)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
-    implementation(libs.gson)
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-
-    debugImplementation(libs.chucker)
-    releaseImplementation(libs.chucker.noop)
-
-    implementation(libs.android.annotations)
-
-    testImplementation(libs.junit)
     testImplementation(libs.mockk)
-    testImplementation(libs.okhttp.mockwebserver)
+    testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
 }
