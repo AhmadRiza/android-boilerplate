@@ -1,10 +1,10 @@
-package com.kitabisa.android.commonandroid.date
+package com.riza.github.common.date
 
 import android.annotation.SuppressLint
-import com.kitabisa.android.commonandroid.R
-import com.kitabisa.android.commonandroid.locale.LocaleProvider
-import com.kitabisa.android.commonandroid.time.TimeProvider
-import com.kitabisa.android.commonandroid.util.ResourceProvider
+import com.riza.github.common.R
+import com.riza.github.common.locale.LocaleProvider
+import com.riza.github.common.time.TimeProvider
+import com.riza.github.common.util.ResourceProvider
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter

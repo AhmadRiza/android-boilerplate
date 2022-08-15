@@ -1,4 +1,4 @@
-package com.kitabisa.android.commonandroid.date
+package com.riza.github.common.date
 
 /**
  * Created by ahmadriza on 06/12/21

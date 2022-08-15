@@ -34,17 +34,17 @@ android {
     signingConfigs {
         getByName("debug") {
             storeFile = file("../debug.keystore")
-            storePassword = "rizakey"
-            keyAlias = "rizadebugkey"
-            keyPassword = "riza"
+            storePassword = "riza.com"
+            keyAlias = "rizadebug"
+            keyPassword = "riza.com"
         }
         create("release") {
             //todo replace with release keystore
             storeFile = file("../debug.keystore")
             //todo replace with System ENV
-            storePassword = "rizakey"
-            keyAlias = "rizadebugkey"
-            keyPassword = "riza"
+            storePassword = "riza.com"
+            keyAlias = "rizadebug"
+            keyPassword = "riza.com"
         }
     }
 
@@ -80,9 +80,14 @@ android {
     }
 
     buildFeatures {
-//        dataBinding = false
-//        viewBinding = true
+        compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+        useLiveLiterals = false
+    }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
@@ -109,10 +114,22 @@ dependencies {
     implementation(project(":network"))
     implementation(project(":github-service"))
 
-
     // UI
     implementation(libs.appcompat)
     implementation(libs.fragment.ktx)
+    implementation(libs.google.material)
+
+    // Compose
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.coil)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.constraintlayout)
+    implementation(libs.compose.google.fonts)
+    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.compose.accompanist.placeholder)
 
     implementation(libs.android.core)
     implementation(libs.android.core.ktx)

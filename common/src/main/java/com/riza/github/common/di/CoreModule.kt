@@ -3,14 +3,17 @@ package com.riza.github.common.di
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.AssetManager
-import com.kitabisa.android.commonandroid.date.DateFormatter
-import com.kitabisa.android.commonandroid.date.DateFormatterImpl
+import com.riza.github.common.date.DateFormatter
+import com.riza.github.common.date.DateFormatterImpl
+import com.riza.github.common.locale.LocaleProvider
+import com.riza.github.common.locale.LocaleProviderImpl
 import com.riza.github.common.router.NavigationRouter
+import com.riza.github.common.time.TimeProvider
+import com.riza.github.common.time.TimeProviderImpl
 import com.riza.github.common.util.ResourceProvider
 import com.riza.github.common.util.ResourceProviderImpl
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 
@@ -45,6 +48,15 @@ class CoreModule(
     @Provides
     @Singleton
     fun provideDateFormatter(impl: DateFormatterImpl): DateFormatter = impl
+
+
+    @Provides
+    @Singleton
+    fun provideTimeProvider(impl: TimeProviderImpl): TimeProvider = impl
+
+    @Provides
+    @Singleton
+    fun provideLocaleProvider(impl: LocaleProviderImpl): LocaleProvider = impl
 
     @Provides
     @Singleton

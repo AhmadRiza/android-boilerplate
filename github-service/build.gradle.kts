@@ -1,11 +1,17 @@
 plugins {
     id("com.android.library")
+    id("org.jetbrains.kotlin.plugin.allopen")
     kotlin("android")
     kotlin("kapt")
     id("kotlinx-serialization")
     id("com.riza.github.module")
     id("com.riza.github.kapt")
     id("com.riza.github.dagger.kapt")
+    alias(libs.plugins.anvil)
+}
+
+allOpen {
+    annotation("com.riza.github.OpenClass")
 }
 
 dependencies {
