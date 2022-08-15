@@ -5,6 +5,5 @@ package com.riza.github.network
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
 object HostUrl {
-    const val GITHUB_BASE_URL = ""
-    const val GITHUB_TOKEN = "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"
+    const val GITHUB_BASE_URL = "https://api.github.com/"
 }

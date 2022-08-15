@@ -39,10 +39,8 @@ android {
             keyPassword = "riza"
         }
         create("release") {
-            storeFile = file(
-                System.getenv("HOME") +
-                        "/MobileUI/keystores/kitabisa-key.keystore"
-            )
+            //todo replace with release keystore
+            storeFile = file("../debug.keystore")
             //todo replace with System ENV
             storePassword = "rizakey"
             keyAlias = "rizadebugkey"
@@ -106,5 +104,68 @@ android {
 }
 
 dependencies {
+    implementation(project(":common"))
+    implementation(project(":cache"))
+    implementation(project(":network"))
+    implementation(project(":github-service"))
+
+
+    // UI
+    implementation(libs.appcompat)
+    implementation(libs.fragment.ktx)
+
+    implementation(libs.android.core)
+    implementation(libs.android.core.ktx)
+
+    // Kotlin
+    implementation(libs.kotlin)
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+
+    // Android Architecture Components
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.livedata.core)
+    implementation(libs.lifecycle.livedata.core.ktx)
+
+    // DI
+    implementation(libs.javax.inject)
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+
+    // Needed for DI classpath resolve
+    implementation(libs.retrofit)
+
+    // Memory Leak Detection
+    debugImplementation(libs.leakcanary)
+
+    // Serialization
+    implementation(libs.gson)
+
+    coreLibraryDesugaring(libs.desugar) {
+        because("Needed for java.time compatibility on os below API 26")
+    }
+
+    // Instrumental Test
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.espresso.intents)
+    androidTestImplementation(libs.test.junit.ktx)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.rules)
+    androidTestImplementation(libs.test.core)
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.barista) {
+        exclude(group = "org.jetbrains.kotlin")
+    }
+
+    // unit test
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.junit)
+    testImplementation(libs.arch.core.testing)
+    testImplementation(libs.mockk)
+    testImplementation("org.json:json:20220320") {
+        because("Needed to test JSONObject")
+    }
+
 
 }
