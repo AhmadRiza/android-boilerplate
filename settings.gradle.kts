@@ -21,5 +21,5 @@ pluginManagement {
 }
 
 include(
-    ":app", ":network", ":common"
+    ":app", ":network", ":common", ":github-service"
 )

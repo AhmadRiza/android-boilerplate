@@ -13,6 +13,6 @@ interface NetworkComponent {
 
     fun okHttpClient(): OkHttpClient
 
-    @Named("geni-retrofit")
+    @Named("github-retrofit")
     fun githubRetrofit(): Retrofit
 }

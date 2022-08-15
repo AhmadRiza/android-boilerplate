@@ -72,7 +72,8 @@ class NetworkModule(
 
     @Provides
     @NetworkScope
-    fun provideRetrofit(
+    @Named("github-retrofit")
+    fun provideGithubRetrofit(
         okHttpClient: OkHttpClient,
         gson: Gson,
     ): Retrofit {
