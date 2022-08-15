@@ -11,6 +11,7 @@ data class GithubUserDetailEntity(
     val login: String?,
     val id: Long?,
     val name: String?,
+    val avatarUrl: String?,
     val company: String?,
     val bio: String?,
     val location: String?,

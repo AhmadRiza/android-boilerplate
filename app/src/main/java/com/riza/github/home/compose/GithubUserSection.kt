@@ -1,6 +1,7 @@
 package com.riza.github.home.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -9,27 +10,31 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.riza.github.R
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import com.google.accompanist.placeholder.placeholder
 import com.riza.github.compose.AppColor
 import com.riza.github.compose.AppTextStyle
+import com.riza.github.home.GithubUserItemModel
 
 /**
  * Created by ahmadriza on 15/08/22.
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
 
-
-
 @Composable
-fun GithubUserSection() {
+fun GithubUserSection(
+    model: GithubUserItemModel,
+    onClickUserSection: (model: GithubUserItemModel) -> Unit
+) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(onClick = { onClickUserSection(model) })
             .padding(
                 horizontal = 24.dp,
                 vertical = 20.dp
@@ -37,30 +42,33 @@ fun GithubUserSection() {
     ) {
         val (imageAvatar, textName, textUserName,
             textDescription, textAddress, textEmail) = createRefs()
-
+        val painter = rememberAsyncImagePainter(model = model.avatarUrl)
         Image(
-            painter = painterResource(id = R.drawable.avat),
+            painter = painter,
             contentDescription = null,
             modifier = Modifier
                 .size(32.dp)
                 .clip(CircleShape)
+                .placeholder(
+                    visible = painter.state is AsyncImagePainter.State.Loading,
+                    shape = CircleShape,
+                    color = AppColor.Neutral50
+                )
                 .constrainAs(imageAvatar) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
                 }
         )
-
         Text(
-            text = "Riza",
+            text = model.name,
             style = AppTextStyle.TextBold,
             modifier = Modifier.constrainAs(textName) {
                 start.linkTo(imageAvatar.end, 8.dp)
                 top.linkTo(parent.top)
             }
         )
-
         Text(
-            text = "@riza",
+            text = model.userName,
             style = AppTextStyle.TextRegular.copy(
                 fontSize = 10.sp
             ),
@@ -69,9 +77,8 @@ fun GithubUserSection() {
                 centerVerticallyTo(textName)
             }
         )
-
         Text(
-            text = "Developer of Google",
+            text = model.description,
             style = AppTextStyle.TextRegular,
             modifier = Modifier.constrainAs(textDescription) {
                 top.linkTo(textName.bottom, 4.dp)
@@ -80,9 +87,8 @@ fun GithubUserSection() {
                 width = Dimension.fillToConstraints
             }
         )
-
         Text(
-            text = "malang, jatim",
+            text = model.address,
             style = AppTextStyle.TextRegular.copy(
                 fontSize = 10.sp, color = AppColor.Neutral700
             ),
@@ -91,9 +97,8 @@ fun GithubUserSection() {
                 top.linkTo(textDescription.bottom, 12.dp)
             }
         )
-
         Text(
-            text = "a@riza.com",
+            text = model.email,
             style = AppTextStyle.TextRegular.copy(
                 fontSize = 10.sp, color = AppColor.Neutral700
             ),

@@ -127,7 +127,6 @@ dependencies {
     implementation(libs.compose.coil)
     implementation(libs.compose.runtime)
     implementation(libs.compose.constraintlayout)
-    implementation(libs.compose.google.fonts)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.accompanist.placeholder)
 

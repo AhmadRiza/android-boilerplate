@@ -10,4 +10,5 @@ object AppColor {
     val Neutral50: Color = Color(0xFFF5F5F5)
     val Neutral700: Color = Color(0xFF707070)
     val Neutral900: Color = Color(0xFF333333)
+    val DividerColor: Color = Color(0xFFF5F5F5)
 }

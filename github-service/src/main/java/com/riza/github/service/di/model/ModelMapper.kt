@@ -24,6 +24,7 @@ fun GithubUserDetailEntity.asModel() = GithubUserDetail(
     login = login.orEmpty(),
     id = id ?: 0,
     name = name.orEmpty(),
+    avatarUrl = avatarUrl,
     company = company.orEmpty(),
     bio = bio.orEmpty(),
     location = location.orEmpty(),

@@ -28,7 +28,7 @@ class GithubCatalogApp: Application() {
         )
         NetworkComponentHolder.buildComponent(
             applicationContext = this,
-            githubToken = "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"
+            githubToken = "token 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"
         )
 
     }
