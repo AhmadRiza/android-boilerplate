@@ -1,7 +1,7 @@
 package com.riza.github.compose
 
-import androidx.compose.material.Text
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 /**
@@ -10,10 +10,16 @@ import androidx.compose.ui.unit.sp
  */
 object AppTextStyle {
 
-    val TextMedium: TextStyle = TextStyle(
-        fontFamily = AppFont.robotoRegular,
+    val TextRegular: TextStyle = TextStyle(
+        fontFamily = AppFont.Roboto,
+        fontWeight = FontWeight.Normal,
         color = AppColor.Neutral900,
         fontSize = 16.sp
     )
-
+    val TextBold: TextStyle = TextStyle(
+        fontFamily = AppFont.Roboto,
+        fontWeight = FontWeight.Bold,
+        color = AppColor.Neutral900,
+        fontSize = 16.sp
+    )
 }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -57,8 +56,8 @@ fun SearchBar(
             tint = AppColor.Neutral700,
             modifier = Modifier
                 .size(24.dp)
-                .alpha(0.2f)
-                .blur(4.dp)
+                .alpha(0.4f)
+                .blur(2.dp)
                 .constrainAs(iconShadow) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top, 8.dp)
@@ -79,7 +78,7 @@ fun SearchBar(
         BasicTextField(
             value = text,
             onValueChange = onTextChanged,
-            textStyle = AppTextStyle.TextMedium,
+            textStyle = AppTextStyle.TextRegular,
             modifier = Modifier.constrainAs(textField) {
                 start.linkTo(iconSearch.end, 12.dp)
                 end.linkTo(parent.end)
@@ -91,7 +90,7 @@ fun SearchBar(
         if(text.isEmpty()) {
             Text(
                 text = "Search some magician...",
-                style = AppTextStyle.TextMedium.copy(color = AppColor.Neutral700),
+                style = AppTextStyle.TextRegular.copy(color = AppColor.Neutral700),
                 modifier = Modifier.constrainAs(hint) {
                     start.linkTo(iconSearch.end, 12.dp)
                     end.linkTo(parent.end)
