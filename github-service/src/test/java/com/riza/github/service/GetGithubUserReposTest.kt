@@ -1,4 +1,4 @@
-package com.riza.github.usecase
+package com.riza.github.service
 
 import com.riza.github.common.model.DefaultErrorMessage
 import com.riza.github.common.model.Result

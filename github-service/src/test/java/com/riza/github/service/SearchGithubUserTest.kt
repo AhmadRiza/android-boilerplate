@@ -1,10 +1,9 @@
-package com.riza.github.usecase
+package com.riza.github.service
 
 import com.riza.github.common.model.DefaultErrorMessage
 import com.riza.github.common.model.Result
 import com.riza.github.service.di.model.*
 import com.riza.github.service.di.repository.GithubRepository
-import com.riza.github.service.di.usecase.GetGithubUserDetail
 import com.riza.github.service.di.usecase.SearchGithubUser
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
@@ -81,7 +80,7 @@ class SearchGithubUserTest: ShouldSpec() {
 
     }
 
-    private val mockGithubSearchUser = GithubSearchUser(
+    private val mockGithubSearchUser get()= GithubSearchUser(
         totalCount = 2,
         incompleteResults = false,
         items = listOf(
