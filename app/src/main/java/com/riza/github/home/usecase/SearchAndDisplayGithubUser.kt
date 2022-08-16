@@ -106,7 +106,8 @@ class SearchAndDisplayGithubUser @Inject constructor(
         avatarUrl = avatarUrl,
         description = bio + if(company.isNotEmpty()) " of $company" else "",
         address = location,
-        email = email
+        email = email,
+        id = id
     )
 
 }

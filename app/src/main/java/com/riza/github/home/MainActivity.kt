@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import com.riza.github.common.base.BaseVMComposeActivity
+import com.riza.github.common.router.NavigationRouter
 import com.riza.github.di.buildAppComponent
+import javax.inject.Inject
 
 /**
  * Created by ahmadriza on 15/08/22.
@@ -12,6 +14,9 @@ import com.riza.github.di.buildAppComponent
  */
 class MainActivity: BaseVMComposeActivity<MainViewModel.Intent, MainViewModel.State,
         MainViewModel.Effect, MainViewModel>() {
+
+    @Inject
+    lateinit var navigationRouter: NavigationRouter
 
     override fun inject() {
         buildAppComponent().inject(this)
@@ -28,7 +33,11 @@ class MainActivity: BaseVMComposeActivity<MainViewModel.Intent, MainViewModel.St
     }
 
     override fun renderEffect(effect: MainViewModel.Effect) {
-
+        when(effect) {
+            is MainViewModel.Effect.GoToDetail -> {
+                navigationRouter.goToDetail(this, effect.detailIntentParam)
+            }
+        }
     }
 
 }

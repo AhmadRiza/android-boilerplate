@@ -3,12 +3,12 @@ package com.riza.github.home
 import androidx.lifecycle.viewModelScope
 import com.riza.github.common.base.BaseViewModel
 import com.riza.github.common.di.IODispatcher
+import com.riza.github.common.router.DetailIntentParam
 import com.riza.github.home.usecase.SearchAndDisplayGithubUser
 import com.riza.github.home.usecase.SearchAndDisplayGithubUser.Event.*
 import com.riza.github.service.di.model.GithubUserDetail
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -27,6 +27,7 @@ class MainViewModel @Inject constructor(
         object OnViewCreated: Intent
         data class OnSearchBarTextChanged(val text: String): Intent
         object OnLoadMore: Intent
+        data class OnClickUser(val id: Long): Intent
     }
 
     data class State (
@@ -35,7 +36,7 @@ class MainViewModel @Inject constructor(
     )
 
     sealed interface Effect {
-
+        data class GoToDetail(val detailIntentParam: DetailIntentParam): Effect
     }
 
     private var page: Int = 1
@@ -47,6 +48,25 @@ class MainViewModel @Inject constructor(
             Intent.OnViewCreated -> onViewCreated()
             is Intent.OnSearchBarTextChanged -> onSearchBarTextChanged(intent.text)
             Intent.OnLoadMore -> onLoadMore()
+            is Intent.OnClickUser -> onClickUser(intent.id)
+        }
+    }
+
+    private fun onClickUser(id: Long) {
+        searchResult.find { it.id == id }?.let {
+            val detailIntentParam = DetailIntentParam(
+                login = it.login,
+                id = it.id,
+                name = it.name,
+                avatarUrl = it.avatarUrl,
+                company = it.company,
+                bio = it.bio,
+                location = it.location,
+                email = it.email,
+                followers = it.followers,
+                following = it.following
+            )
+            setEffect(Effect.GoToDetail(detailIntentParam))
         }
     }
 

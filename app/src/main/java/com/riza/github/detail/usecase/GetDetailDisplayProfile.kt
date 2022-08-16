@@ -1,0 +1,50 @@
+package com.riza.github.detail.usecase
+
+import com.riza.github.common.base.BaseUseCase
+import com.riza.github.common.router.DetailIntentParam
+import com.riza.github.detail.DetailDisplayDividerItemModel
+import com.riza.github.detail.DetailDisplayItemModel
+import com.riza.github.detail.DetailProfileItemModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+
+/**
+ * Created by ahmadriza on 16/08/22.
+ * Copyright (c) 2022 Kitabisa. All rights reserved.
+ */
+
+class GetDetailDisplayProfile @Inject constructor()
+    : BaseUseCase<Flow<GetDetailDisplayProfile.Event>, DetailIntentParam>() {
+
+    sealed interface Event {
+        data class ShowProfileSection(val displayItems: List<DetailDisplayItemModel>): Event
+    }
+
+    override suspend fun build(params: DetailIntentParam?): Flow<Event> {
+        requireNotNull(params)
+        return flow {
+            displayProfileSection(params)
+        }
+    }
+
+    private suspend fun FlowCollector<Event>.displayProfileSection(params: DetailIntentParam) {
+        val displayItems: List<DetailDisplayItemModel> = listOf(
+            params.toProfileSection(),
+            DetailDisplayDividerItemModel
+        )
+        emit(Event.ShowProfileSection(displayItems))
+    }
+
+    private fun DetailIntentParam.toProfileSection() = DetailProfileItemModel(
+        avatarUrl = avatarUrl,
+        name = name,
+        userName = login,
+        description = bio,
+        followers = "$followers",
+        following = "$following",
+        address = location,
+        email = email
+    )
+}

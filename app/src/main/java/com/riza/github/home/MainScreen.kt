@@ -76,7 +76,9 @@ fun MainScreen(
                             }
                             is GithubUserItemModel -> {
                                 GithubUserSection(model = item, onClickUserSection = {
-
+                                    viewModel.onIntentReceived(
+                                        MainViewModel.Intent.OnClickUser(it.id)
+                                    )
                                 })
                             }
                             LoadingItemModel -> {

@@ -9,7 +9,7 @@ sealed interface DetailDisplayItemModel
 interface DetailDisplaySuccessItemModel
 
 data class DetailProfileItemModel(
-    val avatarUrl: String,
+    val avatarUrl: String?,
     val name: String,
     val userName: String,
     val description: String,
@@ -20,7 +20,7 @@ data class DetailProfileItemModel(
 ): DetailDisplayItemModel, DetailDisplaySuccessItemModel
 
 data class DetailRepoItemModel(
-    val avatarUrl: String,
+    val avatarUrl: String?,
     val name: String,
     val description: String,
     val starsCount: String,
@@ -29,5 +29,7 @@ data class DetailRepoItemModel(
 
 object DetailDisplayDividerItemModel: DetailDisplayItemModel, DetailDisplaySuccessItemModel
 object LoadingRepoItemModel: DetailDisplayItemModel
+object LoadingMoreRepoItemModel: DetailDisplayItemModel
 object EndOfListRepoItemModel: DetailDisplayItemModel
+object EmptyRepoItemModel: DetailDisplayItemModel
 data class DetailRepoErrorItemModel(val message: String): DetailDisplayItemModel

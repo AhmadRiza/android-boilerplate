@@ -4,10 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,25 +26,34 @@ import com.riza.github.R
 import com.riza.github.compose.AppColor
 import com.riza.github.compose.AppTextStyle
 import com.riza.github.compose.AppTheme
-import com.riza.github.detail.compose.DetailRepoPreview
-import com.riza.github.detail.compose.PreviewSection
+import com.riza.github.detail.compose.*
+import com.riza.github.home.MainViewModel
+import com.riza.github.home.compose.OnBottomReached
 
 /**
  * Created by ahmadriza on 16/08/22.
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
-@Preview
+
 @Composable
-fun DetailScreen() {
+fun DetailScreen(
+    viewModel: DetailViewModel
+) {
+    val state by viewModel.state.observeAsState(initial = DetailViewModel.State())
     AppTheme {
         Surface(color = Color.White) {
             Column(Modifier.fillMaxWidth()) {
                 TopAppBar(
                     title = {
-                    Text(text = "User Detail", style = AppTextStyle.TextBold.copy(fontSize = 14.sp))
+                        Text(
+                            text = state.titleLabel,
+                            style = AppTextStyle.TextBold.copy(fontSize = 14.sp)
+                        )
                     },
                     navigationIcon = {
-                        IconButton(onClick = {  }) {
+                        IconButton(onClick = {
+                            viewModel.onIntentReceived(DetailViewModel.Intent.OnBackPressed)
+                        }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_round_arrow_back_24),
                                 contentDescription = null,
@@ -50,18 +62,62 @@ fun DetailScreen() {
                         }
                     }
                 )
-                val lazyState = rememberLazyListState()
+                val listState = rememberLazyListState()
                 LazyColumn(
-                    Modifier
+                    state = listState,
+                    modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f), state = lazyState) {
-                    items(1) {
-                        PreviewSection()
-                        DetailRepoPreview()
+                ) {
+                    items(state.displayItems) { item ->
+                        when(item){
+                            DetailDisplayDividerItemModel -> {
+                                RepoDivider()
+                            }
+                            is DetailProfileItemModel -> {
+                                DetailProfileSection(model = item)
+                            }
+                            is DetailRepoErrorItemModel -> {
+
+                            }
+                            is DetailRepoItemModel -> {
+                                DetailRepoSection(model = item)
+                            }
+                            EmptyRepoItemModel -> {
+
+                            }
+                            EndOfListRepoItemModel -> {
+
+                            }
+                            LoadingMoreRepoItemModel -> {
+                                repeat(3) {
+                                    ShimmerDetailRepoSection()
+                                }
+                            }
+                            LoadingRepoItemModel -> {
+                                repeat(5) {
+                                    ShimmerDetailRepoSection()
+                                }
+                            }
+                        }
                     }
+                }
+                listState.OnBottomReached(buffer = 1) {
+                    viewModel.onIntentReceived(DetailViewModel.Intent.OnLoadMoreRepos)
                 }
             }
         }
     }
 
+}
+
+
+@Composable
+fun RepoDivider() {
+    Divider(
+        thickness = 1.dp,
+        color = AppColor.DividerColor,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp)
+    )
 }

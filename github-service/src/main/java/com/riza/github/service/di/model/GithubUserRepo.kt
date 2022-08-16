@@ -15,4 +15,4 @@ data class GithubUserRepo(
     val description: String,
     val stargazersCount: Int,
     val updatedAt: String
-): GithubUserRepoResult
+)

@@ -89,7 +89,8 @@ fun DetailRepoSection(model: DetailRepoItemModel) {
                 .constrainAs(iconStar) {
                     top.linkTo(textDescription.bottom, 12.dp)
                     start.linkTo(textName.start)
-                }
+                },
+            tint = AppColor.Neutral900
         )
         Text(
             text = model.starsCount,

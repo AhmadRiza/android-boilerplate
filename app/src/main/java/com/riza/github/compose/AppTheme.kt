@@ -15,7 +15,7 @@ fun AppTheme(content: @Composable () -> Unit) {
 
     val colorScheme = lightColors(
         primary = Color.White,
-        primaryVariant = Color.White,
+        primaryVariant = AppColor.Neutral900,
         secondary = Color.White,
         background = Color.White,
     )

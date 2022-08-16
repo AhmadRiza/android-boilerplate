@@ -16,6 +16,7 @@ object LoadingMoreItemModel: MainDisplayItemModel
 data class ErrorSearchUserItemModel(val message: String): MainDisplayItemModel
 
 data class GithubUserItemModel(
+    val id: Long,
     val name: String,
     val userName: String,
     val avatarUrl: String?,

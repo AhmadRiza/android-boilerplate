@@ -104,7 +104,8 @@ fun DetailProfileSection(model: DetailProfileItemModel) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_followers),
                 contentDescription = null,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
+                tint = AppColor.Neutral900
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -140,7 +141,8 @@ fun DetailProfileSection(model: DetailProfileItemModel) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_address),
                 contentDescription = null,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
+                tint = AppColor.Neutral900
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -156,7 +158,8 @@ fun DetailProfileSection(model: DetailProfileItemModel) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_email),
                 contentDescription = null,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
+                tint = AppColor.Neutral900
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
