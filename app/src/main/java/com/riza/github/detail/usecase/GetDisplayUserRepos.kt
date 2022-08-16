@@ -3,6 +3,7 @@ package com.riza.github.detail.usecase
 import com.riza.github.common.base.BaseUseCase
 import com.riza.github.common.date.DateFormat
 import com.riza.github.common.date.DateFormatter
+import com.riza.github.common.number.NumberFormatter
 import com.riza.github.detail.DetailDisplayDividerItemModel
 import com.riza.github.detail.DetailDisplayItemModel
 import com.riza.github.detail.DetailRepoItemModel
@@ -21,7 +22,8 @@ import javax.inject.Inject
 
 class GetDisplayUserRepos @Inject constructor(
     private val getGithubUserRepos: GetGithubUserRepos,
-    private val dateFormatter: DateFormatter
+    private val dateFormatter: DateFormatter,
+    private val numberFormatter: NumberFormatter
 ): BaseUseCase<Flow<GetDisplayUserRepos.Event>, GetDisplayUserRepos.Param>() {
     
     data class Param(val userAvatarUrl: String?, val login: String, val page: Int)
@@ -79,14 +81,14 @@ class GetDisplayUserRepos @Inject constructor(
 
     private fun GithubUserRepo.toRepoSection(avatarUrl: String?): DetailRepoItemModel {
         val lastUpdateDate = dateFormatter.getDateOrNull(updatedAt, DateFormat.ISO_TIMESTAMP)
-        val lastUpdateLabel = if(lastUpdateDate != null) dateFormatter
+        val lastUpdateLabel = "Updated " + if(lastUpdateDate != null) dateFormatter
             .getRelativelyFormattedDate(lastUpdateDate.time, DateFormat.DATE_ONLY) else ""
 
         return DetailRepoItemModel(
             avatarUrl = avatarUrl,
             name = name,
             description = description,
-            starsCount = stargazersCount.toString(),
+            starsCount = numberFormatter.prettyCount(stargazersCount.toLong()),
             lastUpdate = lastUpdateLabel
         )
     }

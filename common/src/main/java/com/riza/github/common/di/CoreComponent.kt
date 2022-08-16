@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import com.riza.github.common.date.DateFormatter
 import com.riza.github.common.locale.LocaleProvider
+import com.riza.github.common.number.NumberFormatter
 import com.riza.github.common.router.NavigationRouter
 import com.riza.github.common.time.TimeProvider
 import com.riza.github.common.util.ResourceProvider
@@ -29,6 +30,8 @@ interface CoreComponent {
     fun resourceProvider(): ResourceProvider
 
     fun dateFormatter(): DateFormatter
+
+    fun numberFormatter(): NumberFormatter
 
     fun timeProvider(): TimeProvider
 

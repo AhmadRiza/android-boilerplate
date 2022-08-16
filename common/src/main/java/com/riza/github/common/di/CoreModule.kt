@@ -7,6 +7,8 @@ import com.riza.github.common.date.DateFormatter
 import com.riza.github.common.date.DateFormatterImpl
 import com.riza.github.common.locale.LocaleProvider
 import com.riza.github.common.locale.LocaleProviderImpl
+import com.riza.github.common.number.NumberFormatter
+import com.riza.github.common.number.NumberFormatterImpl
 import com.riza.github.common.router.NavigationRouter
 import com.riza.github.common.time.TimeProvider
 import com.riza.github.common.time.TimeProviderImpl
@@ -57,6 +59,10 @@ class CoreModule(
     @Provides
     @Singleton
     fun provideLocaleProvider(impl: LocaleProviderImpl): LocaleProvider = impl
+
+    @Provides
+    @Singleton
+    fun provideNumberFormatter(impl: NumberFormatterImpl): NumberFormatter = impl
 
     @Provides
     @Singleton

@@ -1,6 +1,7 @@
 package com.riza.github.detail.usecase
 
 import com.riza.github.common.base.BaseUseCase
+import com.riza.github.common.number.NumberFormatter
 import com.riza.github.common.router.DetailIntentParam
 import com.riza.github.detail.DetailDisplayDividerItemModel
 import com.riza.github.detail.DetailDisplayItemModel
@@ -15,7 +16,9 @@ import javax.inject.Inject
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
 
-class GetDetailDisplayProfile @Inject constructor()
+class GetDetailDisplayProfile @Inject constructor(
+    private val numberFormatter: NumberFormatter
+)
     : BaseUseCase<Flow<GetDetailDisplayProfile.Event>, DetailIntentParam>() {
 
     sealed interface Event {
@@ -40,9 +43,9 @@ class GetDetailDisplayProfile @Inject constructor()
         avatarUrl = avatarUrl,
         name = name,
         userName = login,
-        description = bio,
-        followers = "$followers",
-        following = "$following",
+        description = bio + if(company.isNotEmpty()) " of $company" else "",
+        followers = numberFormatter.prettyCount(followers.toLong()),
+        following = numberFormatter.prettyCount(following.toLong()),
         address = location,
         email = email
     )
