@@ -138,7 +138,9 @@ class MainViewModel @Inject constructor(
                             setState { copy(displayItems = displayItems) }
                         }
                         ShowEndOfList -> {
-                            val displayItems = viewState.displayItems.toMutableList()
+                            val displayItems = viewState.displayItems
+                                .filter { it is SuccessDisplayItem }
+                                .toMutableList()
                             displayItems.add(EndOfUsersListItemModel)
                             setState { copy(displayItems = displayItems) }
                         }

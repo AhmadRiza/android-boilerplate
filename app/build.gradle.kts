@@ -29,7 +29,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-
+    android {
+        testOptions {
+            unitTests.all { it.useJUnitPlatform() }
+        }
+    }
 
     signingConfigs {
         getByName("debug") {
@@ -182,7 +186,7 @@ dependencies {
 
     // unit test
     testImplementation(libs.coroutines.test)
-    testImplementation(libs.junit)
+    testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.arch.core.testing)
     testImplementation(libs.mockk)
     testImplementation("org.json:json:20220320") {

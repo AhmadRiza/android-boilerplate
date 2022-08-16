@@ -68,7 +68,7 @@ class SearchAndDisplayGithubUser @Inject constructor(
 
                     val displayItems = mutableListOf<MainDisplayItemModel>()
                     userDetails.forEachIndexed { index, detail ->
-                        if (index != 0) displayItems.add(UserDividerItemModel)
+                        if (index != 0 || !isFirstPage) displayItems.add(UserDividerItemModel)
                         displayItems.add(detail.toDisplayItem())
                     }
 
