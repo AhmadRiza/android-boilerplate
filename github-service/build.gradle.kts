@@ -10,6 +10,12 @@ plugins {
     alias(libs.plugins.anvil)
 }
 
+android {
+    testOptions {
+        unitTests.all { it.useJUnitPlatform() }
+    }
+}
+
 allOpen {
     annotation("com.riza.github.OpenClass")
 }
@@ -35,6 +41,6 @@ dependencies {
     implementation(libs.gson)
 
     testImplementation(libs.mockk)
-    testImplementation(libs.junit)
+    testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.coroutines.test)
 }

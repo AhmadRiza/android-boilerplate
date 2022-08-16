@@ -30,14 +30,14 @@ sealed class Result<out T : Any> {
             fun noInternetConnection(): Error {
                 // TODO: Move to string res
                 return Error(
-                    errorMessage = "Koneksi bermasalah"
+                    errorMessage = DefaultErrorMessage.NO_INTERNET
                 )
             }
 
             fun unknown(): Error {
                 // TODO: Move to string res
                 return Error(
-                    errorMessage = "Terjadi kesalahan, coba beberapa saat lagi ya.",
+                    errorMessage = DefaultErrorMessage.UNKNOWN_ERROR,
                 )
             }
         }
