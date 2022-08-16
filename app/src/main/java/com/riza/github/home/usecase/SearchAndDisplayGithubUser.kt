@@ -8,10 +8,11 @@ import com.riza.github.home.UserDividerItemModel
 import com.riza.github.service.di.model.*
 import com.riza.github.service.di.usecase.GetGithubUserDetail
 import com.riza.github.service.di.usecase.SearchGithubUser
-import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 /**
@@ -53,13 +54,14 @@ class SearchAndDisplayGithubUser @Inject constructor(
             when (val result =
                 searchGithubUser(SearchGithubUser.Param(params.query, params.page))) {
                 is GithubSearchUser -> {
-                    val userDetailsResult: List<GithubUserDetailResult> = result.items.map {
-                        withContext(ioDispatcher) {
+                    val userDetailsCalls = result.items.map {
+                        async {
                             getGithubUserDetail(GetGithubUserDetail.Param(it.login))
                         }
                     }
+                    val userDetailResult = userDetailsCalls.awaitAll()
                     val userDetails: List<GithubUserDetail> =
-                        userDetailsResult.filterIsInstance<GithubUserDetail>()
+                        userDetailResult.filterIsInstance<GithubUserDetail>()
 
                     val displayItems = mutableListOf<MainDisplayItemModel>()
                     userDetails.forEachIndexed { index, detail ->
@@ -88,6 +90,15 @@ class SearchAndDisplayGithubUser @Inject constructor(
                 is GithubSearchUserError -> send(Event.ShowError(result.message))
             }
 
+        }
+    }
+
+    private suspend fun GithubSearchUser.getUserDetail() {
+        CoroutineScope(ioDispatcher).launch {
+            val results = items.map {
+                async { getGithubUserDetail(GetGithubUserDetail.Param(it.login))}
+            }
+            val detail = results.awaitAll()
         }
     }
 

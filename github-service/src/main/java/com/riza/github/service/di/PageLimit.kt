@@ -5,6 +5,6 @@ package com.riza.github.service.di
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
 object PageLimit {
-    const val SEARCH_USER_LIMIT = 5
+    const val SEARCH_USER_LIMIT = 7
     const val USER_REPOS_LIMIT = 5
 }

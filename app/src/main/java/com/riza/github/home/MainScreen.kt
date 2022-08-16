@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
@@ -27,8 +28,10 @@ import com.riza.github.R
 import com.riza.github.compose.AppColor
 import com.riza.github.compose.AppTextStyle
 import com.riza.github.compose.AppTheme
+import com.riza.github.home.MainViewModel.Intent.OnLoadMore
 import com.riza.github.home.MainViewModel.Intent.OnSearchBarTextChanged
 import com.riza.github.home.compose.GithubUserSection
+import com.riza.github.home.compose.OnBottomReached
 import com.riza.github.home.compose.SearchBar
 
 /**
@@ -47,10 +50,13 @@ fun MainScreen(
                 SearchBar(text = state.query, onTextChanged = {
                     viewModel.onIntentReceived(OnSearchBarTextChanged(it))
                 })
-                LazyColumn(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .background(Color.White, shape = RoundedCornerShape(10.dp))
+                val listState = rememberLazyListState()
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .background(Color.White, shape = RoundedCornerShape(10.dp))
                 ) {
                     items(state.displayItems) { item: MainDisplayItemModel ->
                         when(item) {
@@ -81,6 +87,9 @@ fun MainScreen(
                     }
                 }
                 Spacer(modifier = Modifier.height(100.dp))
+                listState.OnBottomReached(buffer = 1) {
+                    viewModel.onIntentReceived(OnLoadMore)
+                }
             }
         }
 
