@@ -68,8 +68,8 @@ class SearchAndDisplayGithubUser @Inject constructor(
 
                     val displayItems = mutableListOf<MainDisplayItemModel>()
                     userDetails.forEachIndexed { index, detail ->
+                        if (index != 0) displayItems.add(UserDividerItemModel)
                         displayItems.add(detail.toDisplayItem())
-                        if (index != userDetails.lastIndex) displayItems.add(UserDividerItemModel)
                     }
 
                     if(displayItems.isEmpty()) {
@@ -88,7 +88,11 @@ class SearchAndDisplayGithubUser @Inject constructor(
                     }
                 }
                 GithubSearchUserEmpty -> {
-                    send(Event.SearchResultEmpty)
+                    if(isFirstPage) {
+                        send(Event.SearchResultEmpty)
+                    } else {
+                        send(Event.ShowEndOfList)
+                    }
                 }
                 is GithubSearchUserError -> send(Event.ShowError(result.message))
             }
