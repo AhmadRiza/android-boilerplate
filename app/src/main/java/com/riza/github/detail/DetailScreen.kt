@@ -17,6 +17,8 @@ import com.riza.github.R
 import com.riza.github.compose.AppColor
 import com.riza.github.compose.AppTextStyle
 import com.riza.github.compose.AppTheme
+import com.riza.github.compose.ErrorSection
+import com.riza.github.detail.DetailViewModel.Intent
 import com.riza.github.detail.compose.DetailProfileSection
 import com.riza.github.detail.compose.DetailRepoSection
 import com.riza.github.detail.compose.ShimmerDetailRepoSection
@@ -44,7 +46,7 @@ fun DetailScreen(
                     },
                     navigationIcon = {
                         IconButton(onClick = {
-                            viewModel.onIntentReceived(DetailViewModel.Intent.OnBackPressed)
+                            viewModel.onIntentReceived(Intent.OnBackPressed)
                         }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_round_arrow_back_24),
@@ -69,11 +71,21 @@ fun DetailScreen(
                                 DetailProfileSection(model = item)
                             }
                             is DetailRepoErrorItemModel -> {
+                                ErrorSection(
+                                    message = item.message,
+                                    modifier = Modifier.height(300.dp)
+                                ) {
+                                    viewModel.onIntentReceived(Intent.RetryLoadRepos)
+                                }
                             }
                             is DetailRepoItemModel -> {
                                 DetailRepoSection(model = item)
                             }
                             EmptyRepoItemModel -> {
+                                ErrorSection(
+                                    message = "Such an empty",
+                                    modifier = Modifier.height(300.dp)
+                                )
                             }
                             EndOfListRepoItemModel -> {
                             }
@@ -91,7 +103,7 @@ fun DetailScreen(
                     }
                 }
                 listState.OnBottomReached(buffer = 1) {
-                    viewModel.onIntentReceived(DetailViewModel.Intent.OnLoadMoreRepos)
+                    viewModel.onIntentReceived(Intent.OnLoadMoreRepos)
                 }
             }
         }

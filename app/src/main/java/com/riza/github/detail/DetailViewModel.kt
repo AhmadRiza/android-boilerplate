@@ -29,6 +29,7 @@ class DetailViewModel @Inject constructor(
         data class OnViewCreated(val param: DetailIntentParam) : Intent
         object OnLoadMoreRepos : Intent
         object OnBackPressed : Intent
+        object RetryLoadRepos : Intent
     }
 
     data class State(
@@ -52,7 +53,12 @@ class DetailViewModel @Inject constructor(
             Intent.OnLoadMoreRepos -> {
                 onLoadMoreRepos()
             }
+            Intent.RetryLoadRepos -> onRetryLoadRepos()
         }
+    }
+
+    private fun onRetryLoadRepos() {
+        viewModelScope.launch { loadRepository() }
     }
 
     private fun onLoadMoreRepos() {
