@@ -5,7 +5,7 @@ package com.riza.github.service.di.model
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
 sealed interface GithubUserDetailResult
-data class GithubUserDetailError(val message: String): GithubUserDetailResult
+data class GithubUserDetailError(val message: String) : GithubUserDetailResult
 data class GithubUserDetail(
     val login: String,
     val id: Long,
@@ -17,4 +17,4 @@ data class GithubUserDetail(
     val email: String,
     val followers: Int,
     val following: Int,
-): GithubUserDetailResult
+) : GithubUserDetailResult

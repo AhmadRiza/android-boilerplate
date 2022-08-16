@@ -19,4 +19,4 @@ data class DetailIntentParam(
     val email: String,
     val followers: Int,
     val following: Int,
-): Parcelable
+) : Parcelable

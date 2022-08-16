@@ -1,7 +1,6 @@
 package com.riza.github.service.di.usecase
 
 import com.riza.github.common.base.BaseUseCase
-import com.riza.github.common.base.UseCase
 import com.riza.github.common.model.Result
 import com.riza.github.service.di.GithubServiceScope
 import com.riza.github.service.di.model.*
@@ -16,10 +15,11 @@ import javax.inject.Inject
 class GetGithubUserRepos @Inject constructor(
     private val repository: GithubRepository
 ) : BaseUseCase<GithubUserRepoResult,
-        GetGithubUserRepos.Param>() {
+    GetGithubUserRepos.Param>() {
 
     data class Param(
-        val login: String, val page: Int
+        val login: String,
+        val page: Int
     )
 
     override suspend fun build(params: Param?): GithubUserRepoResult {
@@ -33,6 +33,4 @@ class GetGithubUserRepos @Inject constructor(
             }
         }
     }
-
-
 }

@@ -5,12 +5,11 @@ import javax.inject.Inject
 import kotlin.math.floor
 import kotlin.math.log10
 
-
 /**
  * Created by ahmadriza on 16/08/22.
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
-class NumberFormatterImpl @Inject constructor(): NumberFormatter {
+class NumberFormatterImpl @Inject constructor() : NumberFormatter {
 
     override fun prettyCount(number: Long): String {
         val suffix = charArrayOf(' ', 'k', 'M', 'B', 'T', 'P', 'E')
@@ -27,5 +26,4 @@ class NumberFormatterImpl @Inject constructor(): NumberFormatter {
             DecimalFormat("#,##0").format(number)
         }
     }
-
 }

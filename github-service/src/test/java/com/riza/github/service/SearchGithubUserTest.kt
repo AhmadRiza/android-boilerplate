@@ -15,13 +15,13 @@ import io.mockk.mockk
  * Created by ahmadriza on 16/08/22.
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
-class SearchGithubUserTest: ShouldSpec() {
+class SearchGithubUserTest : ShouldSpec() {
     private val repository: GithubRepository = mockk()
     private val searchGithubUser = SearchGithubUser(repository)
 
     init {
         val param = SearchGithubUser.Param(query = "riza", page = 1)
-        context("searchGithubUser"){
+        context("searchGithubUser") {
             context("getSuccessful result") {
                 context("with data") {
                     beforeTest {
@@ -47,9 +47,8 @@ class SearchGithubUserTest: ShouldSpec() {
                         searchGithubUser(param) shouldBe expected
                     }
                 }
-                
             }
-            
+
             context("getError result") {
                 context("with no internet") {
                     beforeTest {
@@ -59,7 +58,7 @@ class SearchGithubUserTest: ShouldSpec() {
                     }
                     should("return correct error") {
                         val expected = GithubSearchUserError(DefaultErrorMessage.NO_INTERNET)
-                        
+
                         searchGithubUser(param) shouldBe expected
                     }
                 }
@@ -74,13 +73,11 @@ class SearchGithubUserTest: ShouldSpec() {
                         searchGithubUser(param) shouldBe expected
                     }
                 }
-
             }
         }
-
     }
 
-    private val mockGithubSearchUser get()= GithubSearchUser(
+    private val mockGithubSearchUser get() = GithubSearchUser(
         totalCount = 2,
         incompleteResults = false,
         items = listOf(

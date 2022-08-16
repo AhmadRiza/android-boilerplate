@@ -1,7 +1,5 @@
 package com.riza.github.service.di.model
 
-import androidx.annotation.Keep
-
 /**
  * Created by ahmadriza on 15/08/22.
  * Copyright (c) 2022 Kitabisa. All rights reserved.
@@ -13,7 +11,7 @@ data class GithubSearchUser(
     val totalCount: Int,
     val incompleteResults: Boolean,
     val items: List<GithubUser>
-): GithubSearchUserResult {
+) : GithubSearchUserResult {
     data class GithubUser(
         val login: String,
         val id: Long,
@@ -21,6 +19,6 @@ data class GithubSearchUser(
     )
 }
 
-object GithubSearchUserEmpty: GithubSearchUserResult
+object GithubSearchUserEmpty : GithubSearchUserResult
 
-data class GithubSearchUserError(val message: String): GithubSearchUserResult
+data class GithubSearchUserError(val message: String) : GithubSearchUserResult

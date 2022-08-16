@@ -9,12 +9,12 @@ import com.riza.github.network.interceptor.HeaderInterceptor
 import com.riza.github.network.interceptor.InternetConnectionInterceptor
 import dagger.Module
 import dagger.Provides
+import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-import javax.inject.Named
 
 @Module
 class NetworkModule(

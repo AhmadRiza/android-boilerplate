@@ -2,7 +2,6 @@ package com.riza.github.network
 
 import android.content.Context
 
-
 object NetworkComponentHolder {
     lateinit var networkComponent: NetworkComponent
 

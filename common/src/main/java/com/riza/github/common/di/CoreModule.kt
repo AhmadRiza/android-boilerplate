@@ -51,7 +51,6 @@ class CoreModule(
     @Singleton
     fun provideDateFormatter(impl: DateFormatterImpl): DateFormatter = impl
 
-
     @Provides
     @Singleton
     fun provideTimeProvider(impl: TimeProviderImpl): TimeProvider = impl

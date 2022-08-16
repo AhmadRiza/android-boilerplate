@@ -4,4 +4,3 @@ object NetworkHeader {
     const val CONTENT_TYPE = "Content-Type"
     const val ACCEPT = "Accept"
 }
-        

@@ -16,13 +16,13 @@ import io.mockk.mockk
  * Created by ahmadriza on 16/08/22.
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
-class GetGithubUserDetailTest: ShouldSpec() {
+class GetGithubUserDetailTest : ShouldSpec() {
     private val repository: GithubRepository = mockk()
-    private val getGithubUserDetail =  GetGithubUserDetail(repository)
+    private val getGithubUserDetail = GetGithubUserDetail(repository)
 
     init {
         val login = "AhmadRiza"
-        context("getGithubUserDetail"){
+        context("getGithubUserDetail") {
             context("getSuccessful result") {
                 beforeTest {
                     coEvery {
@@ -60,10 +60,8 @@ class GetGithubUserDetailTest: ShouldSpec() {
                         getGithubUserDetail(param) shouldBe expected
                     }
                 }
-
             }
         }
-
     }
 
     private val mockGithubUserDetail = GithubUserDetail(

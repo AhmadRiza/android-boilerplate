@@ -18,13 +18,13 @@ import io.mockk.mockk
  * Created by ahmadriza on 16/08/22.
  * Copyright (c) 2022 Kitabisa. All rights reserved.
  */
-class GetGithubUserReposTest: ShouldSpec() {
+class GetGithubUserReposTest : ShouldSpec() {
     private val repository: GithubRepository = mockk()
     private val getGithubUserRepos = GetGithubUserRepos(repository)
 
     init {
         val param = GetGithubUserRepos.Param(login = "Ahmad Riza", page = 1)
-        context("getGithubUserRepos"){
+        context("getGithubUserRepos") {
             context("getSuccessful result") {
                 context("with data") {
                     beforeTest {
@@ -48,9 +48,8 @@ class GetGithubUserReposTest: ShouldSpec() {
                         getGithubUserRepos(param) shouldBe expected
                     }
                 }
-                
             }
-            
+
             context("getError result") {
                 context("with no internet") {
                     beforeTest {
@@ -60,7 +59,7 @@ class GetGithubUserReposTest: ShouldSpec() {
                     }
                     should("return correct error") {
                         val expected = GithubUserRepoError(DefaultErrorMessage.NO_INTERNET)
-                        
+
                         getGithubUserRepos(param) shouldBe expected
                     }
                 }
@@ -75,12 +74,9 @@ class GetGithubUserReposTest: ShouldSpec() {
                         getGithubUserRepos(param) shouldBe expected
                     }
                 }
-
             }
         }
-
     }
-
 
     private val mockGithubUserRepos = listOf(
         GithubUserRepo(

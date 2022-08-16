@@ -17,10 +17,11 @@ import javax.inject.Inject
 class SearchGithubUser @Inject constructor(
     private val repository: GithubRepository
 ) : BaseUseCase<GithubSearchUserResult,
-        SearchGithubUser.Param>() {
+    SearchGithubUser.Param>() {
 
     data class Param(
-        val query: String, val page: Int
+        val query: String,
+        val page: Int
     )
 
     override suspend fun build(params: Param?): GithubSearchUserResult {
@@ -34,6 +35,4 @@ class SearchGithubUser @Inject constructor(
             }
         }
     }
-
-
 }

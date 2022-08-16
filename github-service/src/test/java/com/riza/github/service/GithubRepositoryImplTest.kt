@@ -1,7 +1,5 @@
 package com.riza.github.service
 
-
-import com.riza.github.common.entities.NetworkResult
 import com.riza.github.common.model.Result
 import com.riza.github.service.di.entity.GithubSearchUserEntity
 import com.riza.github.service.di.entity.GithubUserDetailEntity
@@ -60,7 +58,7 @@ class GithubRepositoryImplTest : ShouldSpec() {
             context("get success network result") {
                 beforeTest {
                     coEvery {
-                        githubService.getUserDetail("riza", )
+                        githubService.getUserDetail("riza",)
                     } returns Response.success(mockGithubUserDetailEntity)
                 }
                 should("return success result with data") {
@@ -94,11 +92,12 @@ class GithubRepositoryImplTest : ShouldSpec() {
                     val expected = Result.Success.WithData(
                         listOf(
                             GithubUserRepo(
-                            name = "riza",
-                            description = "baik",
-                            stargazersCount = 10,
-                            updatedAt = "mockedDate"
-                        ))
+                                name = "riza",
+                                description = "baik",
+                                stargazersCount = 10,
+                                updatedAt = "mockedDate"
+                            )
+                        )
                     )
                     githubRepository.getUserRepositories(
                         "riza",
@@ -107,7 +106,6 @@ class GithubRepositoryImplTest : ShouldSpec() {
                 }
             }
         }
-
     }
 
     private val mockSearchUserEntity

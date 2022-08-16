@@ -8,7 +8,6 @@ import dagger.Provides
 import javax.inject.Named
 import retrofit2.Retrofit
 
-
 @Module
 class GithubServiceModule {
 

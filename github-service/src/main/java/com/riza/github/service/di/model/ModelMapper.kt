@@ -37,6 +37,6 @@ fun GithubUserDetailEntity.asModel() = GithubUserDetail(
 fun GithubUserRepoEntity.asModel() = GithubUserRepo(
     name = name.orEmpty(),
     description = description.orEmpty(),
-    stargazersCount = stargazersCount?:0,
+    stargazersCount = stargazersCount ?: 0,
     updatedAt = updatedAt.orEmpty()
 )

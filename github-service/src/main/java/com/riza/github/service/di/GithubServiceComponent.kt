@@ -1,6 +1,5 @@
 package com.riza.github.service.di
 
-
 import com.riza.github.common.di.CoreComponent
 import com.riza.github.network.NetworkComponent
 import com.riza.github.service.di.usecase.GetGithubUserDetail

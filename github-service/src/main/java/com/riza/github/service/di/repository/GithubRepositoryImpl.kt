@@ -20,15 +20,15 @@ import javax.inject.Inject
  */
 class GithubRepositoryImpl @Inject constructor(
     private val githubService: GithubService
-): GithubRepository {
+) : GithubRepository {
     override suspend fun searchUser(query: String, page: Int): Result<GithubSearchUser> {
         val result = safeApiCall {
             githubService.searchUser(query, page).toNetworkResult()
         }
-        return when(result) {
+        return when (result) {
             is NetworkResult.Success.WithData ->
                 Result.Success.WithData(result.value.asModel())
-            is ErrorNetworkResult-> result.toErrorResult()
+            is ErrorNetworkResult -> result.toErrorResult()
             is NetworkResult.Success.EmptyData -> result.toEmptyResult()
         }
     }
@@ -37,10 +37,10 @@ class GithubRepositoryImpl @Inject constructor(
         val result = safeApiCall {
             githubService.getUserDetail(login).toNetworkResult()
         }
-        return when(result) {
+        return when (result) {
             is NetworkResult.Success.WithData ->
                 Result.Success.WithData(result.value.asModel())
-            is ErrorNetworkResult-> result.toErrorResult()
+            is ErrorNetworkResult -> result.toErrorResult()
             is NetworkResult.Success.EmptyData -> result.toEmptyResult()
         }
     }
@@ -52,12 +52,11 @@ class GithubRepositoryImpl @Inject constructor(
         val result = safeApiCall {
             githubService.getUserRepos(login, page).toNetworkResult()
         }
-        return when(result) {
+        return when (result) {
             is NetworkResult.Success.WithData ->
                 Result.Success.WithData(result.value.map { it.asModel() })
-            is ErrorNetworkResult-> result.toErrorResult()
+            is ErrorNetworkResult -> result.toErrorResult()
             is NetworkResult.Success.EmptyData -> result.toEmptyResult()
         }
     }
-
 }

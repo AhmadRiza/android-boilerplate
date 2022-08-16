@@ -6,9 +6,9 @@ package com.riza.github.service.di.model
  */
 sealed interface GithubUserRepoResult
 
-object GithubUserRepoEmpty: GithubUserRepoResult
-data class GithubUserRepoError(val message: String): GithubUserRepoResult
-data class GithubUserRepoSuccess(val repos: List<GithubUserRepo>): GithubUserRepoResult
+object GithubUserRepoEmpty : GithubUserRepoResult
+data class GithubUserRepoError(val message: String) : GithubUserRepoResult
+data class GithubUserRepoSuccess(val repos: List<GithubUserRepo>) : GithubUserRepoResult
 
 data class GithubUserRepo(
     val name: String,

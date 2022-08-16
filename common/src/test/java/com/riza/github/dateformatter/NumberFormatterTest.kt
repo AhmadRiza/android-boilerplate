@@ -34,8 +34,5 @@ class NumberFormatterTest {
             "190",
             numberFormatter.prettyCount(190)
         )
-
     }
-
-
 }

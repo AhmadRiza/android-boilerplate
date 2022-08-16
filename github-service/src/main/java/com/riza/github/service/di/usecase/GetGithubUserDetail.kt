@@ -1,7 +1,6 @@
 package com.riza.github.service.di.usecase
 
 import com.riza.github.common.base.BaseUseCase
-import com.riza.github.common.base.UseCase
 import com.riza.github.common.model.Result
 import com.riza.github.service.di.GithubServiceScope
 import com.riza.github.service.di.model.*
@@ -16,7 +15,7 @@ import javax.inject.Inject
 class GetGithubUserDetail @Inject constructor(
     private val repository: GithubRepository
 ) : BaseUseCase<GithubUserDetailResult,
-        GetGithubUserDetail.Param>() {
+    GetGithubUserDetail.Param>() {
 
     data class Param(
         val login: String
@@ -30,6 +29,4 @@ class GetGithubUserDetail @Inject constructor(
             is Result.Success.WithData -> result.data
         }
     }
-
-
 }

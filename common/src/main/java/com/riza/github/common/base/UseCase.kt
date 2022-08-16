@@ -1,9 +1,8 @@
 package com.riza.github.common.base
 
-
+import com.riza.github.common.model.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.riza.github.common.model.Result
 
 abstract class NonSuspendingUseCase<ResultType : Any, in Params> {
 

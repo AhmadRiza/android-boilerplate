@@ -69,4 +69,3 @@ fun NetworkResult.Success.EmptyData.toEmptyResult(): Result.Success.Empty {
         httpCode = httpCode
     )
 }
-
