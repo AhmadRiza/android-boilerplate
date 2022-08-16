@@ -16,7 +16,6 @@ class GithubCatalogApp: Application() {
     override fun onCreate() {
         configureCoreComponents()
         super.onCreate()
-        Locale.setDefault(Locale("in", "ID"))
     }
 
     private fun configureCoreComponents() {

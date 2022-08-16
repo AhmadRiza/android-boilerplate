@@ -68,8 +68,8 @@ class GetDisplayUserRepos @Inject constructor(
             is GithubUserRepoError -> send(Event.ShowError(result.message))
             is GithubUserRepoSuccess -> {
                 val displayItems = mutableListOf<DetailDisplayItemModel>()
-                result.repos.forEachIndexed { index, githubUserRepo ->
-                    if(index != 0) displayItems.add(DetailDisplayDividerItemModel)
+                result.repos.forEachIndexed { _, githubUserRepo ->
+                    displayItems.add(DetailDisplayDividerItemModel)
                     displayItems.add(githubUserRepo.toRepoSection(avatarUrl))
                 }
                 send(Event.RepoResultFound(displayItems))

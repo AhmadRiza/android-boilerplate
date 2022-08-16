@@ -7,7 +7,7 @@ import kotlinx.datetime.TimeZone
 class LocaleProviderImpl @Inject constructor() : LocaleProvider {
 
     override val defaultLocale: Locale
-        get() = Locale("in", "ID")
+        get() = Locale("en", "ID")
 
     override val defaultTimeZone: TimeZone
         get() = TimeZone.currentSystemDefault()

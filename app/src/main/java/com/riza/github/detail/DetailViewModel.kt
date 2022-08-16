@@ -60,20 +60,19 @@ class DetailViewModel @Inject constructor(
 
     private fun onLoadMoreRepos() {
         viewModelScope.launch {
-//            if(viewState.displayItems.lastOrNull() !is EndOfListRepoItemModel
-//                && viewState.displayItems.lastOrNull() is SuccessDisplayItem
-//            ) {
+            if(viewState.displayItems.lastOrNull() !is EndOfListRepoItemModel
+                && viewState.displayItems.lastOrNull() is DetailDisplaySuccessItemModel
+            ) {
                 page++
                 loadRepository()
-                Log.e("LOH", "called more")
-//            }
+            }
         }
     }
 
     private fun onViewCreated(param: DetailIntentParam) {
         viewModelScope.launch {
             intentParam = param
-            setState { copy(titleLabel = "${param.name} Repositories") }
+            setState { copy(titleLabel = "${param.name}'s Repositories") }
             getDetailDisplayProfile(param)
                 .flowOn(ioDispatcher)
                 .collect { event ->

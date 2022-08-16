@@ -6,5 +6,5 @@ package com.riza.github.service.di
  */
 object PageLimit {
     const val SEARCH_USER_LIMIT = 7
-    const val USER_REPOS_LIMIT = 4
+    const val USER_REPOS_LIMIT = 5
 }
