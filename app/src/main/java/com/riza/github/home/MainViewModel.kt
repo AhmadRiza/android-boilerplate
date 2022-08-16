@@ -93,6 +93,10 @@ class MainViewModel @Inject constructor(
 
     private fun searchUser(query: String) {
         searchJob?.cancel()
+        if(query.isEmpty()) {
+            setState { copy(displayItems = emptyList()) }
+            return
+        }
         searchJob = viewModelScope.launch {
             val param = SearchAndDisplayGithubUser.Param(
                 query = query, page = page

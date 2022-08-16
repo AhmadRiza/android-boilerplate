@@ -31,8 +31,7 @@ class GetDetailDisplayProfile @Inject constructor()
 
     private suspend fun FlowCollector<Event>.displayProfileSection(params: DetailIntentParam) {
         val displayItems: List<DetailDisplayItemModel> = listOf(
-            params.toProfileSection(),
-            DetailDisplayDividerItemModel
+            params.toProfileSection()
         )
         emit(Event.ShowProfileSection(displayItems))
     }
