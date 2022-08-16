@@ -58,7 +58,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun onLoadMore() {
-        if(viewState.displayItems.lastOrNull() !is EndOfUsersListItemModel) {
+        if(viewState.displayItems.lastOrNull() !is EndOfUsersListItemModel
+            && viewState.displayItems.isNotEmpty()) {
             page++
             searchUser(viewState.query)
         }

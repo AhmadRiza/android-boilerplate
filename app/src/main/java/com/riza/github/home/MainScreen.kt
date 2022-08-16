@@ -2,6 +2,7 @@ package com.riza.github.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -24,6 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import coil.compose.AsyncImagePainter
+import coil.compose.rememberAsyncImagePainter
+import com.google.accompanist.placeholder.placeholder
 import com.riza.github.R
 import com.riza.github.compose.AppColor
 import com.riza.github.compose.AppTextStyle
@@ -33,6 +37,7 @@ import com.riza.github.home.MainViewModel.Intent.OnSearchBarTextChanged
 import com.riza.github.home.compose.GithubUserSection
 import com.riza.github.home.compose.OnBottomReached
 import com.riza.github.home.compose.SearchBar
+import com.riza.github.home.compose.ShimmerGithubUser
 
 /**
  * Created by ahmadriza on 15/08/22.
@@ -75,10 +80,10 @@ fun MainScreen(
                                 })
                             }
                             LoadingItemModel -> {
-
+                                repeat(5){ ShimmerGithubUser()}
                             }
                             LoadingMoreItemModel -> {
-
+                                repeat(3){ ShimmerGithubUser()}
                             }
                             UserDividerItemModel -> {
                                 UserDivider()
