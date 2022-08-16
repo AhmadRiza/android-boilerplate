@@ -26,6 +26,7 @@ import com.riza.github.R
 import com.riza.github.compose.AppColor
 import com.riza.github.compose.AppTextStyle
 import com.riza.github.compose.AppTheme
+import com.riza.github.compose.ErrorSection
 import com.riza.github.detail.compose.*
 import com.riza.github.home.MainViewModel
 import com.riza.github.home.compose.OnBottomReached
@@ -83,7 +84,6 @@ fun DetailScreen(
                                 DetailRepoSection(model = item)
                             }
                             EmptyRepoItemModel -> {
-
                             }
                             EndOfListRepoItemModel -> {
 

@@ -32,6 +32,8 @@ import com.riza.github.R
 import com.riza.github.compose.AppColor
 import com.riza.github.compose.AppTextStyle
 import com.riza.github.compose.AppTheme
+import com.riza.github.compose.ErrorSection
+import com.riza.github.home.MainViewModel.Intent
 import com.riza.github.home.MainViewModel.Intent.OnLoadMore
 import com.riza.github.home.MainViewModel.Intent.OnSearchBarTextChanged
 import com.riza.github.home.compose.GithubUserSection
@@ -66,18 +68,26 @@ fun MainScreen(
                     items(state.displayItems) { item: MainDisplayItemModel ->
                         when(item) {
                             EmptySearchResultInfoItemModel -> {
-
+                                ErrorSection(
+                                    modifier = Modifier.height(300.dp),
+                                    message = "There is no result related with \"${state.query}\""
+                                )
                             }
                             EndOfUsersListItemModel -> {
 
                             }
                             is ErrorSearchUserItemModel -> {
-
+                                ErrorSection(
+                                    modifier = Modifier.height(300.dp),
+                                    message = item.message
+                                ) {
+                                    viewModel.onIntentReceived(Intent.RetrySearchUser)
+                                }
                             }
                             is GithubUserItemModel -> {
                                 GithubUserSection(model = item, onClickUserSection = {
                                     viewModel.onIntentReceived(
-                                        MainViewModel.Intent.OnClickUser(it.id)
+                                        Intent.OnClickUser(it.id)
                                     )
                                 })
                             }

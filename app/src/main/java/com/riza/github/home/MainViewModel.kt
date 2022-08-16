@@ -28,6 +28,7 @@ class MainViewModel @Inject constructor(
         data class OnSearchBarTextChanged(val text: String): Intent
         object OnLoadMore: Intent
         data class OnClickUser(val id: Long): Intent
+        object RetrySearchUser: Intent
     }
 
     data class State (
@@ -49,7 +50,12 @@ class MainViewModel @Inject constructor(
             is Intent.OnSearchBarTextChanged -> onSearchBarTextChanged(intent.text)
             Intent.OnLoadMore -> onLoadMore()
             is Intent.OnClickUser -> onClickUser(intent.id)
+            Intent.RetrySearchUser -> onRetry()
         }
+    }
+
+    private fun onRetry() {
+        searchUser(viewState.query)
     }
 
     private fun onClickUser(id: Long) {
@@ -110,7 +116,10 @@ class MainViewModel @Inject constructor(
                             searchResult.addAll(event.result)
                         }
                         is ShowError -> {
-                            val displayItems = listOf(ErrorSearchUserItemModel(event.message))
+                            val displayItems = viewState.displayItems
+                                .filter { it is SuccessDisplayItem }
+                                .toMutableList()
+                            displayItems.add(ErrorSearchUserItemModel(event.message))
                             setState { copy(displayItems = displayItems) }
                         }
                         ShowLoading -> {
@@ -118,7 +127,9 @@ class MainViewModel @Inject constructor(
                             setState { copy(displayItems = displayItems) }
                         }
                         ShowLoadingMore -> {
-                            val displayItems = viewState.displayItems.toMutableList()
+                            val displayItems = viewState.displayItems
+                                .filter { it is SuccessDisplayItem }
+                                .toMutableList()
                             displayItems.add(LoadingMoreItemModel)
                             setState { copy(displayItems = displayItems) }
                         }
