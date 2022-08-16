@@ -7,13 +7,12 @@ import com.riza.github.common.number.NumberFormatter
 import com.riza.github.detail.DetailDisplayDividerItemModel
 import com.riza.github.detail.DetailDisplayItemModel
 import com.riza.github.detail.DetailRepoItemModel
-import com.riza.github.home.MainDisplayItemModel
 import com.riza.github.service.di.model.*
 import com.riza.github.service.di.usecase.GetGithubUserRepos
+import javax.inject.Inject
 import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
-import javax.inject.Inject
 
 /**
  * Created by ahmadriza on 16/08/22.
@@ -24,10 +23,10 @@ class GetDisplayUserRepos @Inject constructor(
     private val getGithubUserRepos: GetGithubUserRepos,
     private val dateFormatter: DateFormatter,
     private val numberFormatter: NumberFormatter
-): BaseUseCase<Flow<GetDisplayUserRepos.Event>, GetDisplayUserRepos.Param>() {
-    
+) : BaseUseCase<Flow<GetDisplayUserRepos.Event>, GetDisplayUserRepos.Param>() {
+
     data class Param(val userAvatarUrl: String?, val login: String, val page: Int)
-    
+
     sealed interface Event {
         data class RepoResultFound(
             val displayItems: List<DetailDisplayItemModel>,
@@ -35,10 +34,10 @@ class GetDisplayUserRepos @Inject constructor(
         object RepoResultEmpty : Event
         object ShowLoading : Event
         object ShowLoadingMore : Event
-        object ShowEndOfList: Event
+        object ShowEndOfList : Event
         data class ShowError(val message: String) : Event
     }
-    
+
     override suspend fun build(params: Param?): Flow<Event> {
         requireNotNull(params)
         return channelFlow {
@@ -57,11 +56,11 @@ class GetDisplayUserRepos @Inject constructor(
         } else {
             send(Event.ShowLoadingMore)
         }
-        
-        when(val result = getGithubUserRepos(GetGithubUserRepos.Param(login, page))) {
+
+        when (val result = getGithubUserRepos(GetGithubUserRepos.Param(login, page))) {
 
             GithubUserRepoEmpty -> {
-                if(isFirstPage) {
+                if (isFirstPage) {
                     send(Event.RepoResultEmpty)
                 } else {
                     send(Event.ShowEndOfList)
@@ -81,7 +80,7 @@ class GetDisplayUserRepos @Inject constructor(
 
     private fun GithubUserRepo.toRepoSection(avatarUrl: String?): DetailRepoItemModel {
         val lastUpdateDate = dateFormatter.getDateOrNull(updatedAt, DateFormat.ISO_TIMESTAMP)
-        val lastUpdateLabel = "Updated " + if(lastUpdateDate != null) dateFormatter
+        val lastUpdateLabel = "Updated " + if (lastUpdateDate != null) dateFormatter
             .getRelativelyFormattedDate(lastUpdateDate.time, DateFormat.DATE_ONLY) else ""
 
         return DetailRepoItemModel(
@@ -92,5 +91,4 @@ class GetDisplayUserRepos @Inject constructor(
             lastUpdate = lastUpdateLabel
         )
     }
-
 }

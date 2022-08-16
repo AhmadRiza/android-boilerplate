@@ -31,8 +31,10 @@ fun ShimmerGithubUser() {
                 vertical = 20.dp
             )
     ) {
-        val (imageAvatar, textName,
-            textDescription, textAddress) = createRefs()
+        val (
+            imageAvatar, textName,
+            textDescription, textAddress
+        ) = createRefs()
         val shimmerModifier = Modifier.placeholder(
             visible = true,
             color = AppColor.Neutral50,
@@ -53,7 +55,8 @@ fun ShimmerGithubUser() {
                     highlight = PlaceholderHighlight.shimmer(
                         Color.White,
                         PlaceholderDefaults.shimmerAnimationSpec
-                    ))
+                    )
+                )
                 .constrainAs(imageAvatar) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
@@ -61,10 +64,10 @@ fun ShimmerGithubUser() {
         )
         Spacer(
             modifier = shimmerModifier.height(20.dp).width(100.dp)
-            .constrainAs(textName) {
-                start.linkTo(imageAvatar.end, 8.dp)
-                top.linkTo(parent.top)
-            }
+                .constrainAs(textName) {
+                    start.linkTo(imageAvatar.end, 8.dp)
+                    top.linkTo(parent.top)
+                }
         )
 
         Spacer(
@@ -83,6 +86,5 @@ fun ShimmerGithubUser() {
                 top.linkTo(textDescription.bottom, 12.dp)
             }
         )
-
     }
 }

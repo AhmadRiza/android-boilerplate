@@ -11,12 +11,12 @@ import com.riza.github.service.di.model.GithubSearchUserError
 import com.riza.github.service.di.model.GithubUserDetail
 import com.riza.github.service.di.usecase.GetGithubUserDetail
 import com.riza.github.service.di.usecase.SearchGithubUser
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
-import javax.inject.Inject
 
 /**
  * Created by ahmadriza on 15/08/22.
@@ -41,7 +41,7 @@ class SearchAndDisplayGithubUser @Inject constructor(
         object SearchResultEmpty : Event
         object ShowLoading : Event
         object ShowLoadingMore : Event
-        object ShowEndOfList: Event
+        object ShowEndOfList : Event
         data class ShowError(val message: String) : Event
     }
 
@@ -54,8 +54,10 @@ class SearchAndDisplayGithubUser @Inject constructor(
             } else {
                 send(Event.ShowLoadingMore)
             }
-            when (val result =
-                searchGithubUser(SearchGithubUser.Param(params.query, params.page))) {
+            when (
+                val result =
+                    searchGithubUser(SearchGithubUser.Param(params.query, params.page))
+            ) {
                 is GithubSearchUser -> {
                     val userDetailsCalls = result.items.map {
                         async {
@@ -72,8 +74,8 @@ class SearchAndDisplayGithubUser @Inject constructor(
                         displayItems.add(detail.toDisplayItem())
                     }
 
-                    if(displayItems.isEmpty()) {
-                        if(isFirstPage) {
+                    if (displayItems.isEmpty()) {
+                        if (isFirstPage) {
                             send(Event.SearchResultEmpty)
                         } else {
                             send(Event.ShowEndOfList)
@@ -88,7 +90,7 @@ class SearchAndDisplayGithubUser @Inject constructor(
                     }
                 }
                 GithubSearchUserEmpty -> {
-                    if(isFirstPage) {
+                    if (isFirstPage) {
                         send(Event.SearchResultEmpty)
                     } else {
                         send(Event.ShowEndOfList)
@@ -96,7 +98,6 @@ class SearchAndDisplayGithubUser @Inject constructor(
                 }
                 is GithubSearchUserError -> send(Event.ShowError(result.message))
             }
-
         }
     }
 
@@ -104,10 +105,9 @@ class SearchAndDisplayGithubUser @Inject constructor(
         name = name,
         userName = "@$login",
         avatarUrl = avatarUrl,
-        description = bio + if(company.isNotEmpty()) " of $company" else "",
+        description = bio + if (company.isNotEmpty()) " of $company" else "",
         address = location,
         email = email,
         id = id
     )
-
 }

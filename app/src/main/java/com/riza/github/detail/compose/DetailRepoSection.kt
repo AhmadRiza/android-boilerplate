@@ -47,8 +47,10 @@ fun DetailRepoSection(model: DetailRepoItemModel) {
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 16.dp)
     ) {
-        val (imageAvatar, textName, textDescription,
-            iconStar, textStar, textLastUpdate) = createRefs()
+        val (
+            imageAvatar, textName, textDescription,
+            iconStar, textStar, textLastUpdate
+        ) = createRefs()
         val painter = rememberAsyncImagePainter(model = model.avatarUrl)
         Image(
             painter = painter,

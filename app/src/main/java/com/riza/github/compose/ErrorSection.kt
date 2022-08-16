@@ -1,9 +1,11 @@
 package com.riza.github.compose
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,14 +25,15 @@ private fun ErrorPreview() {
     ErrorSection(message = "No internet")
 }
 
-
 @Composable
 fun ErrorSection(modifier: Modifier = Modifier, message: String, onRetry: (() -> Unit)? = null) {
     Column(
         modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp,
-                vertical = 16.dp),
+            .padding(
+                horizontal = 24.dp,
+                vertical = 16.dp
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -50,6 +53,5 @@ fun ErrorSection(modifier: Modifier = Modifier, message: String, onRetry: (() ->
                     .clickable(onClick = onRetry)
             )
         }
-
     }
 }

@@ -1,8 +1,11 @@
 package com.riza.github.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import com.riza.github.home.compose.GithubUserSection
 import org.junit.Assert
 import org.junit.Rule
@@ -57,7 +60,6 @@ class GithubUserSectionUITest {
         composeTestRule.onNodeWithText("riza.public@gmail.com").assertIsDisplayed()
     }
 
-
     @Test
     fun clicked_InvokeTheCallback() {
         var clickedModel: GithubUserItemModel? = null
@@ -70,7 +72,7 @@ class GithubUserSectionUITest {
         Assert.assertEquals(clickedModel, mockModel)
     }
 
-    private val mockModel get()= GithubUserItemModel(
+    private val mockModel get() = GithubUserItemModel(
         id = 10,
         name = "Riza",
         userName = "@AhmadRiza",

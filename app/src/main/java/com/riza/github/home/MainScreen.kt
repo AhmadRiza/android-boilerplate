@@ -1,36 +1,20 @@
 package com.riza.github.home
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
-import coil.compose.AsyncImagePainter
-import coil.compose.rememberAsyncImagePainter
-import com.google.accompanist.placeholder.placeholder
-import com.riza.github.R
 import com.riza.github.compose.AppColor
-import com.riza.github.compose.AppTextStyle
 import com.riza.github.compose.AppTheme
 import com.riza.github.compose.ErrorSection
 import com.riza.github.home.MainViewModel.Intent
@@ -66,7 +50,7 @@ fun MainScreen(
                         .background(Color.White, shape = RoundedCornerShape(10.dp))
                 ) {
                     items(state.displayItems) { item: MainDisplayItemModel ->
-                        when(item) {
+                        when (item) {
                             EmptySearchResultInfoItemModel -> {
                                 ErrorSection(
                                     modifier = Modifier.height(300.dp),
@@ -74,7 +58,6 @@ fun MainScreen(
                                 )
                             }
                             EndOfUsersListItemModel -> {
-
                             }
                             is ErrorSearchUserItemModel -> {
                                 ErrorSection(
@@ -92,10 +75,10 @@ fun MainScreen(
                                 })
                             }
                             LoadingItemModel -> {
-                                repeat(5){ ShimmerGithubUser()}
+                                repeat(5) { ShimmerGithubUser() }
                             }
                             LoadingMoreItemModel -> {
-                                repeat(3){ ShimmerGithubUser()}
+                                repeat(3) { ShimmerGithubUser() }
                             }
                             UserDividerItemModel -> {
                                 UserDivider()
@@ -109,9 +92,7 @@ fun MainScreen(
                 }
             }
         }
-
     }
-
 }
 
 @Composable

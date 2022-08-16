@@ -41,8 +41,10 @@ fun GithubUserSection(
                 vertical = 20.dp
             ).testTag("gh_user_section")
     ) {
-        val (imageAvatar, textName, textUserName,
-            textDescription, textAddress, textEmail) = createRefs()
+        val (
+            imageAvatar, textName, textUserName,
+            textDescription, textAddress, textEmail
+        ) = createRefs()
         val painter = rememberAsyncImagePainter(model = model.avatarUrl)
         Image(
             painter = painter,
@@ -109,5 +111,4 @@ fun GithubUserSection(
             }
         )
     }
-
 }

@@ -7,12 +7,12 @@ import com.riza.github.common.router.DetailIntentParam
 import com.riza.github.home.usecase.SearchAndDisplayGithubUser
 import com.riza.github.home.usecase.SearchAndDisplayGithubUser.Event.*
 import com.riza.github.service.di.model.GithubUserDetail
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Created by ahmadriza on 15/08/22.
@@ -21,23 +21,23 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val searchAndDisplayGithubUser: SearchAndDisplayGithubUser,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher
-): BaseViewModel<MainViewModel.Intent, MainViewModel.State, MainViewModel.Effect>(State()) {
+) : BaseViewModel<MainViewModel.Intent, MainViewModel.State, MainViewModel.Effect>(State()) {
 
     sealed interface Intent {
-        object OnViewCreated: Intent
-        data class OnSearchBarTextChanged(val text: String): Intent
-        object OnLoadMore: Intent
-        data class OnClickUser(val id: Long): Intent
-        object RetrySearchUser: Intent
+        object OnViewCreated : Intent
+        data class OnSearchBarTextChanged(val text: String) : Intent
+        object OnLoadMore : Intent
+        data class OnClickUser(val id: Long) : Intent
+        object RetrySearchUser : Intent
     }
 
-    data class State (
+    data class State(
         val displayItems: List<MainDisplayItemModel> = emptyList(),
         val query: String = "",
     )
 
     sealed interface Effect {
-        data class GoToDetail(val detailIntentParam: DetailIntentParam): Effect
+        data class GoToDetail(val detailIntentParam: DetailIntentParam) : Effect
     }
 
     private var page: Int = 1
@@ -45,7 +45,7 @@ class MainViewModel @Inject constructor(
     private var searchJob: Job? = null
 
     override fun onIntentReceived(intent: Intent) {
-        when(intent) {
+        when (intent) {
             Intent.OnViewCreated -> onViewCreated()
             is Intent.OnSearchBarTextChanged -> onSearchBarTextChanged(intent.text)
             Intent.OnLoadMore -> onLoadMore()
@@ -84,8 +84,9 @@ class MainViewModel @Inject constructor(
     }
 
     private fun onLoadMore() {
-        if(viewState.displayItems.lastOrNull() !is EndOfUsersListItemModel
-            && viewState.displayItems.lastOrNull() is SuccessDisplayItem) {
+        if (viewState.displayItems.lastOrNull() !is EndOfUsersListItemModel &&
+            viewState.displayItems.lastOrNull() is SuccessDisplayItem
+        ) {
             page++
             searchUser(viewState.query)
         }
@@ -93,7 +94,7 @@ class MainViewModel @Inject constructor(
 
     private fun searchUser(query: String) {
         searchJob?.cancel()
-        if(query.isEmpty()) {
+        if (query.isEmpty()) {
             setState { copy(displayItems = emptyList()) }
             return
         }
@@ -105,13 +106,13 @@ class MainViewModel @Inject constructor(
                 .cancellable()
                 .flowOn(ioDispatcher)
                 .collect { event ->
-                    when(event) {
+                    when (event) {
                         SearchResultEmpty -> {
                             val displayItems = listOf(EmptySearchResultInfoItemModel)
                             setState { copy(displayItems = displayItems) }
                         }
                         is SearchResultFound -> {
-                            //filter only detail and divider
+                            // filter only detail and divider
                             val displayItems = viewState.displayItems
                                 .filter { it is SuccessDisplayItem }
                                 .toMutableList()
@@ -150,7 +151,5 @@ class MainViewModel @Inject constructor(
     }
 
     private fun onViewCreated() {
-
     }
-
 }

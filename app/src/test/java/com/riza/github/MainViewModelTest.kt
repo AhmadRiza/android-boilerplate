@@ -1,9 +1,16 @@
 package com.riza.github
 
 import androidx.lifecycle.Observer
-import com.riza.github.detail.EndOfListRepoItemModel
-import com.riza.github.home.*
-import com.riza.github.home.MainViewModel.*
+import com.riza.github.home.EmptySearchResultInfoItemModel
+import com.riza.github.home.EndOfUsersListItemModel
+import com.riza.github.home.ErrorSearchUserItemModel
+import com.riza.github.home.GithubUserItemModel
+import com.riza.github.home.LoadingItemModel
+import com.riza.github.home.MainViewModel
+import com.riza.github.home.MainViewModel.Effect
+import com.riza.github.home.MainViewModel.Intent
+import com.riza.github.home.MainViewModel.State
+import com.riza.github.home.UserDividerItemModel
 import com.riza.github.home.usecase.SearchAndDisplayGithubUser
 import com.riza.github.service.di.model.GithubSearchUser
 import com.riza.github.service.di.model.GithubSearchUserEmpty
@@ -13,13 +20,15 @@ import com.riza.github.service.di.usecase.GetGithubUserDetail
 import com.riza.github.service.di.usecase.SearchGithubUser
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.instanceOf
-import io.mockk.*
+import io.mockk.clearMocks
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.slot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import com.riza.github.home.usecase.SearchAndDisplayGithubUser.Param as SearchParam
 
 /**
  * Created by ahmadriza on 16/08/22.
@@ -148,7 +157,7 @@ class MainViewModelTest : BehaviorSpec() {
                             userName = "@" + mockGithubUserDetail.login,
                             avatarUrl = mockGithubUserDetail.avatarUrl,
                             description = mockGithubUserDetail.bio +
-                                    " of ${mockGithubUserDetail.company}",
+                                " of ${mockGithubUserDetail.company}",
                             address = mockGithubUserDetail.location,
                             email = mockGithubUserDetail.email
                         )
@@ -159,10 +168,7 @@ class MainViewModelTest : BehaviorSpec() {
                             .displayItems
                             .first() shouldBe expected
                     }
-
-
                 }
-
             }
 
             When("LoadMore") {
@@ -187,7 +193,7 @@ class MainViewModelTest : BehaviorSpec() {
                             userName = "@" + mockGithubUserDetail.login,
                             avatarUrl = mockGithubUserDetail.avatarUrl,
                             description = mockGithubUserDetail.bio +
-                                    " of ${mockGithubUserDetail.company}",
+                                " of ${mockGithubUserDetail.company}",
                             address = mockGithubUserDetail.location,
                             email = mockGithubUserDetail.email
                         )
@@ -225,7 +231,7 @@ class MainViewModelTest : BehaviorSpec() {
                             userName = "@" + mockGithubUserDetail.login,
                             avatarUrl = mockGithubUserDetail.avatarUrl,
                             description = mockGithubUserDetail.bio +
-                                    " of ${mockGithubUserDetail.company}",
+                                " of ${mockGithubUserDetail.company}",
                             address = mockGithubUserDetail.location,
                             email = mockGithubUserDetail.email
                         )
@@ -241,11 +247,8 @@ class MainViewModelTest : BehaviorSpec() {
                             .displayItems shouldBe expected
                     }
                 }
-
             }
-
         }
-
     }
 
     private val mockSearchUser
@@ -260,7 +263,6 @@ class MainViewModelTest : BehaviorSpec() {
                 )
             )
         )
-
 
     private val mockGithubUserDetail = GithubUserDetail(
         login = "AhmadRiza",

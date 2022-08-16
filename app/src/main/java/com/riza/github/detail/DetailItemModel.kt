@@ -17,7 +17,7 @@ data class DetailProfileItemModel(
     val following: String,
     val address: String,
     val email: String
-): DetailDisplayItemModel, DetailDisplaySuccessItemModel
+) : DetailDisplayItemModel, DetailDisplaySuccessItemModel
 
 data class DetailRepoItemModel(
     val avatarUrl: String?,
@@ -25,11 +25,11 @@ data class DetailRepoItemModel(
     val description: String,
     val starsCount: String,
     val lastUpdate: String
-): DetailDisplayItemModel, DetailDisplaySuccessItemModel
+) : DetailDisplayItemModel, DetailDisplaySuccessItemModel
 
-object DetailDisplayDividerItemModel: DetailDisplayItemModel, DetailDisplaySuccessItemModel
-object LoadingRepoItemModel: DetailDisplayItemModel
-object LoadingMoreRepoItemModel: DetailDisplayItemModel
-object EndOfListRepoItemModel: DetailDisplayItemModel
-object EmptyRepoItemModel: DetailDisplayItemModel
-data class DetailRepoErrorItemModel(val message: String): DetailDisplayItemModel
+object DetailDisplayDividerItemModel : DetailDisplayItemModel, DetailDisplaySuccessItemModel
+object LoadingRepoItemModel : DetailDisplayItemModel
+object LoadingMoreRepoItemModel : DetailDisplayItemModel
+object EndOfListRepoItemModel : DetailDisplayItemModel
+object EmptyRepoItemModel : DetailDisplayItemModel
+data class DetailRepoErrorItemModel(val message: String) : DetailDisplayItemModel

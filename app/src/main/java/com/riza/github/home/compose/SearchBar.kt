@@ -27,25 +27,26 @@ import com.riza.github.compose.AppTextStyle
 
 @Composable
 fun SearchBar(
-    text : String,
+    text: String,
     onTextChanged: (String) -> Unit
 ) {
-    ConstraintLayout(modifier = Modifier
-        .fillMaxWidth()
-        .padding(
-            start = 20.dp,
-            end = 20.dp,
-            top = 15.dp,
-            bottom = 8.dp
-        )
-        .background(
-            color = AppColor.Neutral50,
-            shape = RoundedCornerShape(10.dp)
-        )
-        .padding(
-            horizontal = 16.dp,
-            vertical = 10.dp
-        )
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = 20.dp,
+                end = 20.dp,
+                top = 15.dp,
+                bottom = 8.dp
+            )
+            .background(
+                color = AppColor.Neutral50,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .padding(
+                horizontal = 16.dp,
+                vertical = 10.dp
+            )
     ) {
 
         val (iconSearch, iconShadow, textField, hint) = createRefs()
@@ -87,7 +88,7 @@ fun SearchBar(
                 width = Dimension.fillToConstraints
             }
         )
-        if(text.isEmpty()) {
+        if (text.isEmpty()) {
             Text(
                 text = "Search some magician...",
                 style = AppTextStyle.TextRegular.copy(color = AppColor.Neutral700),
@@ -100,8 +101,5 @@ fun SearchBar(
                 }
             )
         }
-
-
     }
 }
-

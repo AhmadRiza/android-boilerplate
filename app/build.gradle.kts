@@ -43,9 +43,9 @@ android {
             keyPassword = "riza.com"
         }
         create("release") {
-            //todo replace with release keystore
+            // todo replace with release keystore
             storeFile = file("../debug.keystore")
-            //todo replace with System ENV
+            // todo replace with System ENV
             storePassword = "riza.com"
             keyAlias = "rizadebug"
             keyPassword = "riza.com"
@@ -192,6 +192,4 @@ dependencies {
     testImplementation("org.json:json:20220320") {
         because("Needed to test JSONObject")
     }
-
-
 }

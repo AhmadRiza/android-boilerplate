@@ -55,8 +55,10 @@ fun DetailProfileSection(model: DetailProfileItemModel) {
                 bottom = 21.dp
             )
     ) {
-        val (imageAvatar, textName, textUserName, textDescription,
-            viewFollower, viewAddress, viewEmail) = createRefs()
+        val (
+            imageAvatar, textName, textUserName, textDescription,
+            viewFollower, viewAddress, viewEmail
+        ) = createRefs()
         val painter = rememberAsyncImagePainter(model = model.avatarUrl)
         Image(
             painter = painter,
@@ -97,10 +99,13 @@ fun DetailProfileSection(model: DetailProfileItemModel) {
             }
         )
 
-        Row(modifier = Modifier.constrainAs(viewFollower) {
-            start.linkTo(textUserName.start)
-            top.linkTo(textDescription.bottom, 12.dp)
-        }, verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.constrainAs(viewFollower) {
+                start.linkTo(textUserName.start)
+                top.linkTo(textDescription.bottom, 12.dp)
+            },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_followers),
                 contentDescription = null,
@@ -134,10 +139,13 @@ fun DetailProfileSection(model: DetailProfileItemModel) {
             )
         }
 
-        Row(modifier = Modifier.constrainAs(viewAddress) {
-            start.linkTo(textUserName.start)
-            top.linkTo(viewFollower.bottom, 12.dp)
-        }, verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.constrainAs(viewAddress) {
+                start.linkTo(textUserName.start)
+                top.linkTo(viewFollower.bottom, 12.dp)
+            },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_address),
                 contentDescription = null,
@@ -151,10 +159,13 @@ fun DetailProfileSection(model: DetailProfileItemModel) {
             )
         }
 
-        Row(modifier = Modifier.constrainAs(viewEmail) {
-            start.linkTo(textUserName.start)
-            top.linkTo(viewAddress.bottom, 12.dp)
-        }, verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.constrainAs(viewEmail) {
+                start.linkTo(textUserName.start)
+                top.linkTo(viewAddress.bottom, 12.dp)
+            },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_email),
                 contentDescription = null,

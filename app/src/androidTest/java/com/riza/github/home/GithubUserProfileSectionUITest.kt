@@ -6,7 +6,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import com.riza.github.detail.DetailProfileItemModel
 import com.riza.github.detail.compose.DetailProfileSection
-import com.riza.github.home.compose.GithubUserSection
 import org.junit.Rule
 import org.junit.Test
 

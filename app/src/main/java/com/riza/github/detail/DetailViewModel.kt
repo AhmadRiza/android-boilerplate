@@ -1,6 +1,5 @@
 package com.riza.github.detail
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.riza.github.common.base.BaseViewModel
 import com.riza.github.common.di.IODispatcher
@@ -8,12 +7,10 @@ import com.riza.github.common.router.DetailIntentParam
 import com.riza.github.detail.usecase.GetDetailDisplayProfile
 import com.riza.github.detail.usecase.GetDetailDisplayProfile.Event
 import com.riza.github.detail.usecase.GetDisplayUserRepos
-import com.riza.github.home.EndOfUsersListItemModel
-import com.riza.github.home.SuccessDisplayItem
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Created by ahmadriza on 16/08/22.
@@ -24,7 +21,7 @@ class DetailViewModel @Inject constructor(
     private val getDetailDisplayProfile: GetDetailDisplayProfile,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseViewModel<DetailViewModel.Intent,
-        DetailViewModel.State, DetailViewModel.Effect>(
+    DetailViewModel.State, DetailViewModel.Effect>(
     State()
 ) {
 
@@ -40,7 +37,7 @@ class DetailViewModel @Inject constructor(
     )
 
     sealed interface Effect {
-        object FinishActivity: Effect
+        object FinishActivity : Effect
     }
 
     private lateinit var intentParam: DetailIntentParam
@@ -60,8 +57,8 @@ class DetailViewModel @Inject constructor(
 
     private fun onLoadMoreRepos() {
         viewModelScope.launch {
-            if(viewState.displayItems.lastOrNull() !is EndOfListRepoItemModel
-                && viewState.displayItems.lastOrNull() is DetailDisplaySuccessItemModel
+            if (viewState.displayItems.lastOrNull() !is EndOfListRepoItemModel &&
+                viewState.displayItems.lastOrNull() is DetailDisplaySuccessItemModel
             ) {
                 page++
                 loadRepository()
@@ -78,15 +75,16 @@ class DetailViewModel @Inject constructor(
                 .collect { event ->
                     when (event) {
                         is Event.ShowProfileSection -> {
-                            setState { copy(
-                                displayItems = event.displayItems
-                            ) }
+                            setState {
+                                copy(
+                                    displayItems = event.displayItems
+                                )
+                            }
                         }
                     }
                 }
             loadRepository()
         }
-
     }
 
     private suspend fun loadRepository() {
@@ -96,7 +94,7 @@ class DetailViewModel @Inject constructor(
             )
         ).flowOn(ioDispatcher)
             .collect { event ->
-                when(event) {
+                when (event) {
                     GetDisplayUserRepos.Event.RepoResultEmpty -> {
                         submitRepoDisplayItems(EmptyRepoItemModel)
                     }
