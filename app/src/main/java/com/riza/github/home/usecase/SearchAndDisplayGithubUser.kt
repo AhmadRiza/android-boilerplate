@@ -5,14 +5,17 @@ import com.riza.github.common.di.IODispatcher
 import com.riza.github.home.GithubUserItemModel
 import com.riza.github.home.MainDisplayItemModel
 import com.riza.github.home.UserDividerItemModel
-import com.riza.github.service.di.model.*
+import com.riza.github.service.di.model.GithubSearchUser
+import com.riza.github.service.di.model.GithubSearchUserEmpty
+import com.riza.github.service.di.model.GithubSearchUserError
+import com.riza.github.service.di.model.GithubUserDetail
 import com.riza.github.service.di.usecase.GetGithubUserDetail
 import com.riza.github.service.di.usecase.SearchGithubUser
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 /**
@@ -93,20 +96,11 @@ class SearchAndDisplayGithubUser @Inject constructor(
         }
     }
 
-    private suspend fun GithubSearchUser.getUserDetail() {
-        CoroutineScope(ioDispatcher).launch {
-            val results = items.map {
-                async { getGithubUserDetail(GetGithubUserDetail.Param(it.login))}
-            }
-            val detail = results.awaitAll()
-        }
-    }
-
     private fun GithubUserDetail.toDisplayItem() = GithubUserItemModel(
         name = name,
-        userName = login,
+        userName = "@$login",
         avatarUrl = avatarUrl,
-        description = "$bio of $company",
+        description = bio + if(company.isNotEmpty()) " of $company" else "",
         address = location,
         email = email
     )

@@ -59,7 +59,7 @@ class MainViewModel @Inject constructor(
 
     private fun onLoadMore() {
         if(viewState.displayItems.lastOrNull() !is EndOfUsersListItemModel
-            && viewState.displayItems.isNotEmpty()) {
+            && viewState.displayItems.lastOrNull() is SuccessDisplayItem) {
             page++
             searchUser(viewState.query)
         }
@@ -90,8 +90,7 @@ class MainViewModel @Inject constructor(
                             searchResult.addAll(event.result)
                         }
                         is ShowError -> {
-                            val displayItems = viewState.displayItems.toMutableList()
-                            displayItems.add(ErrorSearchUserItemModel(event.message))
+                            val displayItems = listOf(ErrorSearchUserItemModel(event.message))
                             setState { copy(displayItems = displayItems) }
                         }
                         ShowLoading -> {
