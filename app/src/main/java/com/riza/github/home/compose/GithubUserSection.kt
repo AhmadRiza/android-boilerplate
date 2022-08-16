@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -38,7 +39,7 @@ fun GithubUserSection(
             .padding(
                 horizontal = 24.dp,
                 vertical = 20.dp
-            )
+            ).testTag("gh_user_section")
     ) {
         val (imageAvatar, textName, textUserName,
             textDescription, textAddress, textEmail) = createRefs()

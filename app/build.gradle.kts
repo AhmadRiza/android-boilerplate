@@ -165,14 +165,20 @@ dependencies {
     // Instrumental Test
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.espresso.intents)
+    androidTestImplementation(libs.fragment.testing)
     androidTestImplementation(libs.test.junit.ktx)
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.rules)
     androidTestImplementation(libs.test.core)
     androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.dexmaker)
     androidTestImplementation(libs.barista) {
         exclude(group = "org.jetbrains.kotlin")
     }
+
+    debugImplementation(libs.compose.ui.test.manifest)
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.arch.core.testing)
 
     // unit test
     testImplementation(libs.coroutines.test)
